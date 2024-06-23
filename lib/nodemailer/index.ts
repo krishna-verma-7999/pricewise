@@ -1,13 +1,13 @@
-import { EmailContent, EmailProductInfo } from "@/types";
+import { EmailContent, EmailProductInfo, NotificationType } from "@/types";
 import { Anybody } from "next/font/google";
 import nodemailer from "nodemailer";
 
-export enum NotificationType {
-  WELCOME = "WELCOME",
-  CHANGE_OF_STOCK = "CHANGE_OF_STOCK",
-  LOWEST_PRICE = "LOWEST_PRICE",
-  THRESHOLD_MET = "THRESHOLD_MET",
-}
+export const Notification = {
+  WELCOME: "WELCOME",
+  CHANGE_OF_STOCK: "CHANGE_OF_STOCK",
+  LOWEST_PRICE: "LOWEST_PRICE",
+  THRESHOLD_MET: "THRESHOLD_MET",
+};
 
 export async function generateEmailBody(
   product: EmailProductInfo,
@@ -24,7 +24,7 @@ export async function generateEmailBody(
   let body = "";
 
   switch (type) {
-    case NotificationType.WELCOME:
+    case Notification.WELCOME:
       subject = `Welcome to Price Tracking for ${shortenedTitle}`;
       body = `
           <div>
@@ -42,7 +42,7 @@ export async function generateEmailBody(
         `;
       break;
 
-    case NotificationType.CHANGE_OF_STOCK:
+    case Notification.CHANGE_OF_STOCK:
       subject = `${shortenedTitle} is now back in stock!`;
       body = `
           <div>
@@ -52,7 +52,7 @@ export async function generateEmailBody(
         `;
       break;
 
-    case NotificationType.LOWEST_PRICE:
+    case Notification.LOWEST_PRICE:
       subject = `Lowest Price Alert for ${shortenedTitle}`;
       body = `
           <div>
@@ -62,7 +62,7 @@ export async function generateEmailBody(
         `;
       break;
 
-    case NotificationType.THRESHOLD_MET:
+    case Notification.THRESHOLD_MET:
       subject = `Discount Alert for ${shortenedTitle}`;
       body = `
           <div>
