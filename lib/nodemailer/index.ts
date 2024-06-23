@@ -1,5 +1,4 @@
 import { EmailContent, EmailProductInfo, NotificationType } from "@/types";
-import { Anybody } from "next/font/google";
 import nodemailer from "nodemailer";
 
 export const Notification = {

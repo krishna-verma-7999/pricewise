@@ -6,7 +6,7 @@ import { connectToDB } from "../mongoose";
 import { scrapeAmazonProduct } from "../scrapper";
 import { getAveragePrice, getHighestPrice, getLowestPrice } from "../utils";
 import { User } from "@/types";
-import { NotificationType, generateEmailBody, sendEmail } from "../nodemailer";
+import { Notification, generateEmailBody, sendEmail } from "../nodemailer";
 
 export async function scrapeAndStoreProduct(productUrl: string) {
   if (!productUrl) return;
@@ -107,10 +107,7 @@ export async function addUserEmailToProduct(
       product.users.push({ email: userEmail });
 
       await product.save();
-      const emailContent = await generateEmailBody(
-        product,
-        NotificationType.WELCOME
-      );
+      const emailContent = await generateEmailBody(product, "WELCOME");
 
       await sendEmail(emailContent, [userEmail]);
     }
